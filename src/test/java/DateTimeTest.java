@@ -60,6 +60,15 @@ void setUp(){
     }
 
     @Test
+    void onlyOnePastDateTest() {
+        Temporal[] lonelyArray = {LocalDate.of(2023,8,6)};
+        dateProximityAdjuster = new PastTemporalDateProximity(lonelyArray);
+        LocalDate current = LocalDate.of(2024,8,11);
+        LocalDate expected = LocalDate.of(2023,8,6);
+        assertEquals(expected, dateProximityAdjuster.adjustInto(current));
+    }
+
+    @Test
     void noPastDateTest(){
         LocalDate current = LocalDate.of(2000,4,9);
         assertThrows(IllegalStateException.class, () -> current.with(dateProximityAdjuster));
